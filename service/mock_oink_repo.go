@@ -1,16 +1,16 @@
 package service
 
 import (
-	"github.com/mesosphere/oinker-go/model"
+	"github.com/eslng/oinker-go/model"
 
-	"sync"
 	"strconv"
+	"sync"
 	"time"
 )
 
 // MockOinkRepo is an in-memory OinkRepo
 type MockOinkRepo struct {
-	lock sync.RWMutex
+	lock  sync.RWMutex
 	oinks []model.Oink
 }
 
@@ -51,7 +51,7 @@ func (r *MockOinkRepo) All() ([]model.Oink, error) {
 	defer r.lock.RUnlock()
 
 	result := make([]model.Oink, 0, len(r.oinks))
-	for i := len(r.oinks)-1; i >= 0; i-- {
+	for i := len(r.oinks) - 1; i >= 0; i-- {
 		result = append(result, r.oinks[i])
 	}
 	return result, nil

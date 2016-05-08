@@ -1,18 +1,18 @@
 package main
 
 import (
-	"github.com/mesosphere/oinker-go/controller"
-	"github.com/mesosphere/oinker-go/service"
+	"github.com/eslng/oinker-go/controller"
+	"github.com/eslng/oinker-go/service"
 
-	"github.com/karlkfi/inject"
 	"github.com/gocql/gocql"
+	"github.com/karlkfi/inject"
 
 	"net/http"
 	"os"
 )
 
 type Oinker struct {
-	CQLHosts []string
+	CQLHosts             []string
 	CQLReplicationFactor int
 }
 

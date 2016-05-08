@@ -1,14 +1,14 @@
 package controller
 
 import (
-	"github.com/mesosphere/oinker-go/model"
-	"github.com/mesosphere/oinker-go/service"
+	"github.com/eslng/oinker-go/model"
+	"github.com/eslng/oinker-go/service"
 
 	log "github.com/Sirupsen/logrus"
 
-	"net/http"
-	"fmt"
 	"encoding/json"
+	"fmt"
+	"net/http"
 	"strings"
 )
 
@@ -105,7 +105,7 @@ func (c *OinkController) Post(w http.ResponseWriter, r *http.Request) {
 	content := r.Form.Get("content")
 
 	oink, err := c.repo.Create(model.Oink{
-		Handle: handle,
+		Handle:  handle,
 		Content: content,
 	})
 	if err != nil {

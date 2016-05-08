@@ -1,15 +1,15 @@
 package main
 
 import (
-	"github.com/mesosphere/oinker-go/controller"
-	"github.com/mesosphere/oinker-go/service"
+	"github.com/eslng/oinker-go/controller"
+	"github.com/eslng/oinker-go/service"
 
+	log "github.com/Sirupsen/logrus"
 	"github.com/facebookgo/grace/gracehttp"
 	"github.com/karlkfi/inject"
-	log "github.com/Sirupsen/logrus"
 
-	"net/http"
 	"flag"
+	"net/http"
 )
 
 func main() {

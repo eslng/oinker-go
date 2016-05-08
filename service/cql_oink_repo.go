@@ -1,28 +1,28 @@
 package service
 
 import (
-	"github.com/mesosphere/oinker-go/model"
+	"github.com/eslng/oinker-go/model"
 
+	log "github.com/Sirupsen/logrus"
 	"github.com/gocql/gocql"
 	"github.com/satori/go.uuid"
-	log "github.com/Sirupsen/logrus"
 
-	"time"
-	"fmt"
 	"errors"
+	"fmt"
 	"sync"
+	"time"
 )
 
 type CQLOinkRepo struct {
-	initialized bool
-	lock sync.RWMutex
-	session *CQLSession
+	initialized       bool
+	lock              sync.RWMutex
+	session           *CQLSession
 	replicationFactor int
 }
 
 func NewCQLOinkRepo(session *CQLSession, replicationFactor int) *CQLOinkRepo {
 	return &CQLOinkRepo{
-		session: session,
+		session:           session,
 		replicationFactor: replicationFactor,
 	}
 }
@@ -67,8 +67,8 @@ func (r *CQLOinkRepo) Initialize() {
 
 	err = r.session.Query(
 		"CREATE TABLE IF NOT EXISTS oinker.oinks " +
-		"( kind VARCHAR, id VARCHAR, content VARCHAR, created_at timeuuid, handle VARCHAR, PRIMARY KEY (kind, created_at) ) " +
-		"WITH CLUSTERING ORDER BY (created_at DESC)",
+			"( kind VARCHAR, id VARCHAR, content VARCHAR, created_at timeuuid, handle VARCHAR, PRIMARY KEY (kind, created_at) ) " +
+			"WITH CLUSTERING ORDER BY (created_at DESC)",
 	).Exec()
 	if err != nil {
 		log.Errorf("Creating table (oinker.oinks): %s", err)
@@ -79,8 +79,8 @@ func (r *CQLOinkRepo) Initialize() {
 
 	err = r.session.Query(
 		"CREATE TABLE IF NOT EXISTS oinker.analytics " +
-		"( kind VARCHAR, key VARCHAR, frequency INT, PRIMARY KEY (kind, frequency) ) " +
-		"WITH CLUSTERING ORDER BY (frequency DESC)",
+			"( kind VARCHAR, key VARCHAR, frequency INT, PRIMARY KEY (kind, frequency) ) " +
+			"WITH CLUSTERING ORDER BY (frequency DESC)",
 	).Exec()
 	if err != nil {
 		log.Errorf("Creating table (oinker.analytics): %s", err)
@@ -112,8 +112,8 @@ func (r *CQLOinkRepo) Create(o model.Oink) (model.Oink, error) {
 	o.CreationTime = time.Now()
 
 	err := r.session.Query(
-		"INSERT INTO oinker.oinks (kind, id, content, created_at, handle) " +
-		"VALUES (?, ?, ?, ?, ?)",
+		"INSERT INTO oinker.oinks (kind, id, content, created_at, handle) "+
+			"VALUES (?, ?, ?, ?, ?)",
 		"oink", o.ID, o.Content, gocql.UUIDFromTime(o.CreationTime), o.Handle,
 	).Exec()
 	if err != nil {
@@ -132,9 +132,9 @@ func (r *CQLOinkRepo) FindByID(id string) (model.Oink, bool, error) {
 
 	iter := r.session.Query("SELECT content, created_at, handle FROM oinker.oinks WHERE id = ?", id).Iter()
 	var (
-		content string
+		content      string
 		creationTime gocql.UUID
-		handle string
+		handle       string
 	)
 	oink := model.Oink{
 		ID: id,
@@ -160,21 +160,21 @@ func (r *CQLOinkRepo) All() ([]model.Oink, error) {
 	}
 
 	iter := r.session.Query(
-		"SELECT id, content, created_at, handle FROM oinker.oinks " +
-		"WHERE kind = ? ORDER BY created_at DESC",
+		"SELECT id, content, created_at, handle FROM oinker.oinks "+
+			"WHERE kind = ? ORDER BY created_at DESC",
 		"oink",
 	).Iter()
 	var (
 		id, content, handle string
-		creationTime gocql.UUID
+		creationTime        gocql.UUID
 	)
 	oinks := make([]model.Oink, 0)
 	for iter.Scan(&id, &content, &creationTime, &handle) {
 		oink := model.Oink{
-			ID: id,
-			Content: content,
+			ID:           id,
+			Content:      content,
 			CreationTime: creationTime.Time(),
-			Handle: handle,
+			Handle:       handle,
 		}
 		oinks = append(oinks, oink)
 	}

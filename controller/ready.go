@@ -1,22 +1,22 @@
 package controller
 
 import (
-	"github.com/mesosphere/oinker-go/service"
+	"github.com/eslng/oinker-go/service"
 
 	log "github.com/Sirupsen/logrus"
 
-	"net/http"
 	"fmt"
+	"net/http"
 )
 
 type ReadyController struct {
-	svc service.Service
+	svc          service.Service
 	instanceName string
 }
 
 func NewReadyController(svc service.Service, instanceName string) *ReadyController {
 	return &ReadyController{
-		svc: svc,
+		svc:          svc,
 		instanceName: instanceName,
 	}
 }

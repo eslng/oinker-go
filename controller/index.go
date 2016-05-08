@@ -1,26 +1,26 @@
 package controller
 
 import (
-	"github.com/mesosphere/oinker-go/service"
-	"github.com/mesosphere/oinker-go/view"
+	"github.com/eslng/oinker-go/service"
+	"github.com/eslng/oinker-go/view"
 
-	"github.com/dustin/go-humanize"
 	log "github.com/Sirupsen/logrus"
+	"github.com/dustin/go-humanize"
 
-	"net/http"
-	"html/template"
-	"time"
 	"fmt"
+	"html/template"
+	"net/http"
+	"time"
 )
 
 type IndexController struct {
-	repo service.OinkRepo
+	repo         service.OinkRepo
 	instanceName string
 }
 
 func NewIndexController(repo service.OinkRepo, instanceName string) *IndexController {
 	return &IndexController{
-		repo: repo,
+		repo:         repo,
 		instanceName: instanceName,
 	}
 }
@@ -61,9 +61,9 @@ func (c *IndexController) handleInner(w http.ResponseWriter, r *http.Request) HT
 	err = t.Execute(w, view.Index{
 		Page: view.Page{
 			RelativeRootPath: ".",
-			InstanceName: c.instanceName,
+			InstanceName:     c.instanceName,
 		},
-		Oinks: oinks,
+		Oinks:   oinks,
 		IsEmpty: len(oinks) == 0,
 	})
 	if err != nil {

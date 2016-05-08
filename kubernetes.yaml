@@ -21,7 +21,7 @@ items:
       spec:
         containers:
         - name: server
-          image: mesosphere/oinker-go:latest
+          image: eslng/oinker-go:latest
           imagePullPolicy: Always
           command:
           - "oinker"

@@ -1,6 +1,6 @@
 package service
 
-import "github.com/mesosphere/oinker-go/model"
+import "github.com/eslng/oinker-go/model"
 
 type OinkRepo interface {
 	Service
