@@ -1,6 +1,6 @@
 {
   "id": "/oinker",
-  "instances": 3,
+  "instances": 1,
   "container": {
     "type": "DOCKER",
     "docker": {
@@ -24,6 +24,11 @@
     "timeoutSeconds": 10,
     "maxConsecutiveFailures": 2
   }],
+  "labels":{
+    "HAPROXY_GROUP":"external",
+    "HAPROXY_0_VHOST":"ec2-52-91-84-205.compute-1.amazonaws.com",
+    "HAPROXY_0_PORT": "80"
+  },
   "ports": [0],
   "cpus": 0.25,
   "mem": 256.0
