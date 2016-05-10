@@ -2,7 +2,7 @@
 all: binary
 
 ORG=eslng
-REPO=$(shell git rev-parse --show-toplevel | xargs basename)
+REPO=oinker-go
 REPO_PATH=github.com/$(ORG)/$(REPO)
 
 .PHONY: clean
