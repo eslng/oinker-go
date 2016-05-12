@@ -12,10 +12,11 @@
           "hostPort": 0,
           "protocol": "tcp"
         }
-      ]
+      ],
+      "forcePullImage": true
     }
   },
-  "cmd": "oinker --cassandra-addr=cassandra-dcos-node.cassandra.dcos.mesos --cassandra-repl=1",
+  "cmd": "oinker --cassandra-addr=node-0.cassandra.mesos --cassandra-repl=1",
   "healthChecks": [{
     "protocol": "TCP",
     "gracePeriodSeconds": 600,
