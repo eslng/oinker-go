@@ -21,7 +21,7 @@ func (o *Oinker) NewGraph() inject.Graph {
 
 	var instanceName string
 	graph.Define(&instanceName, inject.NewProvider(func() string {
-		name := os.Getenv("MARATHON_APP_LABEL_NAME_0")
+		name := os.Getenv("MARATHON_APP_LABEL_NAME")
 		if name == "" {
 			return "instance-unknown"
 		}
